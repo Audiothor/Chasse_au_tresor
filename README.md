@@ -1,6 +1,6 @@
-💍 Chasse au Trésor - 25 Ans de Mariage (v1.1.4)
+💍 Chasse au Trésor avec QR codes
 
-Une application web interactive, responsive et moderne conçue pour animer une chasse au trésor d'anniversaire de mariage (Noces d'Argent). Elle permet aux invités de participer via leur smartphone en scannant des QR codes physiquement cachés sur le lieu de l'événement et en résolvant des énigmes.
+Une application web interactive, responsive et moderne conçue pour animer une chasse au trésor (pour anniversaire, fêtes...). Elle permet aux invités de participer via leur smartphone en scannant des QR codes physiquement cachés sur le lieu de l'événement et en résolvant des énigmes.
 
 ✨ Fonctionnalités Principales
 
@@ -48,7 +48,7 @@ Connexion HTTPS recommandée pour des raisons d'ergonomie sur mobile.
 
 Téléversement des fichiers :
 
-Téléversez les fichiers index.html (ou chasse_au_tresor_25_ans.html) et api.php dans le même dossier racine ou sous-dossier de votre serveur web (ex: http://votre-domaine.com/chasse/).
+Téléversez les fichiers index.html et api.php dans le même dossier racine ou sous-dossier de votre serveur web (ex: http://votre-domaine.com/chasse/).
 
 Permissions d'écriture (CHMOD) :
 
