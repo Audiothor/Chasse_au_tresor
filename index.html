@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chasse au Trésor - 25 Ans de Mariage (v1.1.4)</title>
+    <title id="app-page-title">Chasse au Trésor - 25 Ans de Mariage (v1.1.5)</title>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -64,12 +64,12 @@
     <!-- En-tête Navigation -->
     <header class="max-w-md mx-auto pt-6 px-4 flex justify-between items-center">
         <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-slate-300 via-slate-100 to-amber-200 flex items-center justify-center shadow-lg text-slate-900 font-bold text-lg">
+            <div id="header-badge" class="w-10 h-10 rounded-full bg-gradient-to-tr from-slate-300 via-slate-100 to-amber-200 flex items-center justify-center shadow-lg text-slate-900 font-bold text-lg">
                 25
             </div>
             <div>
-                <h1 class="text-lg font-bold silver-gradient-text">Noces d'Argent</h1>
-                <p class="text-xs text-slate-400 font-medium">v1.1.4</p>
+                <h1 id="header-subtitle-display" class="text-lg font-bold silver-gradient-text">Noces d'Argent</h1>
+                <p class="text-xs text-slate-400 font-medium">v1.1.5</p>
             </div>
         </div>
         
@@ -99,8 +99,8 @@
                 <i class="fa-solid fa-gem"></i>
             </div>
             <div>
-                <h2 class="text-2xl font-bold gold-gradient-text">Chasse au Trésor</h2>
-                <p class="text-xs text-amber-300 font-medium uppercase tracking-wider mt-1">25 Ans de Mariage</p>
+                <h2 id="welcome-title-display" class="text-2xl font-bold gold-gradient-text">Chasse au Trésor</h2>
+                <p id="welcome-subtitle-display" class="text-xs text-amber-300 font-medium uppercase tracking-wider mt-1">25 Ans de Mariage</p>
             </div>
 
             <!-- Boîte d'enregistrement joueur -->
@@ -163,6 +163,7 @@
                 <!-- Onglets de navigation Backend -->
                 <div class="flex border-b border-slate-800 pb-2 space-x-4 overflow-x-auto text-xs">
                     <button onclick="switchAdminTab('players')" id="tab-btn-players" class="font-bold text-amber-400 border-b-2 border-amber-400 pb-1 whitespace-nowrap">Joueurs & Suivi (<span id="players-count">0</span>)</button>
+                    <button onclick="switchAdminTab('event')" id="tab-btn-event" class="font-bold text-slate-400 hover:text-white pb-1 whitespace-nowrap">Titres Événement</button>
                     <button onclick="switchAdminTab('builder')" id="tab-btn-builder" class="font-bold text-slate-400 hover:text-white pb-1 whitespace-nowrap">Éditeur d'Étapes</button>
                     <button onclick="switchAdminTab('treasure')" id="tab-btn-treasure" class="font-bold text-slate-400 hover:text-white pb-1 whitespace-nowrap">Coffre Final</button>
                     <button onclick="switchAdminTab('security')" id="tab-btn-security" class="font-bold text-slate-400 hover:text-white pb-1 whitespace-nowrap">Sécurité Admin</button>
@@ -189,7 +190,33 @@
                     </div>
                 </div>
 
-                <!-- Onglet 1 : Éditeur d'Étapes -->
+                <!-- Onglet 1 : Personnalisation de l'Événement -->
+                <div id="tab-event" class="hidden space-y-4 text-xs">
+                    <div class="p-4 bg-slate-900/90 border border-slate-800 rounded-xl space-y-4">
+                        <div>
+                            <h4 class="font-bold text-amber-400 text-sm flex items-center space-x-2">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                <span>Personnalisation Générale du Jeu</span>
+                            </h4>
+                            <p class="text-slate-400 text-[11px] mt-1">Adaptez les titres pour n'importe quel type d'événement (Anniversaire, Mariage, EVJF, Séminaire, etc.).</p>
+                        </div>
+                        
+                        <div>
+                            <label class="block font-medium text-slate-300 mb-1">Titre principal du jeu</label>
+                            <input type="text" id="event-title-input" placeholder="Ex: Chasse au Trésor, Escape Game..." class="w-full p-2.5 rounded bg-slate-950 border border-slate-800 text-white">
+                        </div>
+                        <div>
+                            <label class="block font-medium text-slate-300 mb-1">Nom / Sous-titre de l'événement</label>
+                            <input type="text" id="event-subtitle-input" placeholder="Ex: 25 Ans de Mariage, Anniversaire 30 ans..." class="w-full p-2.5 rounded bg-slate-950 border border-slate-800 text-white">
+                        </div>
+                        <div>
+                            <label class="block font-medium text-slate-300 mb-1">Chiffre ou Sigle du badge d'en-tête (1 à 3 caractères)</label>
+                            <input type="text" id="event-badge-input" maxlength="4" placeholder="Ex: 25, 30, 🎉, 💍" class="w-full p-2.5 rounded bg-slate-950 border border-slate-800 text-white font-bold text-center w-24">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Onglet 2 : Éditeur d'Étapes -->
                 <div id="tab-builder" class="hidden space-y-6 text-xs">
                     <div class="flex justify-between items-center">
                         <p class="text-slate-300">Gérez les questions, médias (audio/image), réponses et indices d'emplacements.</p>
@@ -203,7 +230,7 @@
                     </div>
                 </div>
 
-                <!-- Onglet 2 : Étape Finale & Cadenas -->
+                <!-- Onglet 3 : Étape Finale & Cadenas -->
                 <div id="tab-treasure" class="hidden space-y-4 text-xs">
                     <div class="p-4 bg-amber-950/30 border border-amber-500/40 rounded-xl space-y-3">
                         <h4 class="font-bold text-amber-400 text-sm">Configuration du Coffre au Trésor</h4>
@@ -220,7 +247,7 @@
                     </div>
                 </div>
 
-                <!-- Onglet 3 : Sécurité Admin -->
+                <!-- Onglet 4 : Sécurité Admin -->
                 <div id="tab-security" class="hidden space-y-4 text-xs">
                     <div class="p-4 bg-slate-900/90 border border-slate-800 rounded-xl space-y-3">
                         <h4 class="font-bold text-white text-sm">Modifier le Code PIN Administrateur</h4>
@@ -234,7 +261,7 @@
                     </div>
                 </div>
 
-                <!-- Onglet 4 : Aperçu & Impression des QR Codes -->
+                <!-- Onglet 5 : Aperçu & Impression des QR Codes -->
                 <div id="tab-allqrs" class="hidden space-y-4 text-xs">
                     <p class="text-slate-300">Aperçu de tous les QR codes sécurisés. Cliquez sur une image pour l'agrandir et l'imprimer :</p>
                     <div id="all-qrcodes-preview" class="grid grid-cols-1 gap-3">
@@ -242,7 +269,7 @@
                     </div>
                 </div>
 
-                <!-- Onglet 5 : Livre d'Or Backend -->
+                <!-- Onglet 6 : Livre d'Or Backend -->
                 <div id="tab-guestbook" class="hidden space-y-4">
                     <div id="guestbook-list" class="space-y-3 max-h-60 overflow-y-auto">
                         <!-- Messages des joueurs -->
@@ -344,6 +371,7 @@
         function printZoomedQr() {
             const title = document.getElementById('qr-zoom-title').innerText;
             const url = document.getElementById('qr-zoom-url').innerText;
+            const eventName = gameConfig.eventSubtitle || "Chasse au Trésor";
             
             const qrImgElement = document.querySelector('#qr-zoom-canvas-box img');
             const qrCanvasElement = document.querySelector('#qr-zoom-canvas-box canvas');
@@ -373,7 +401,7 @@
                         <button onclick="window.print()" style="padding: 10px 20px; font-weight: bold; background: #d97706; color: white; border: none; border-radius: 8px; cursor: pointer; margin-bottom: 20px;">Lancer l'impression</button>
                     </div>
                     <div class="card">
-                        <h1>25 Ans de Mariage</h1>
+                        <h1>${eventName}</h1>
                         <h2>${title}</h2>
                         <img src="${qrSrc}" alt="QR Code ${title}" />
                         <div class="url">${url}</div>
@@ -396,6 +424,10 @@
         }
 
         let gameConfig = {
+            version: "1.1.5",
+            eventTitle: "Chasse au Trésor",
+            eventSubtitle: "25 Ans de Mariage",
+            badgeText: "25",
             adminPinHash: 'a3c485800d11f6c449c28652d87e0259f8a329d4c9d9681f21501c51db3f0a5f', // "2525"
             finalStep: {
                 token: "final_treasure_8a92f",
@@ -438,7 +470,22 @@
 
         const savedData = localStorage.getItem('wedding_hunt_config_v6');
         if (savedData) {
-            try { gameConfig = JSON.parse(savedData); } catch(e){}
+            try { 
+                const parsed = JSON.parse(savedData);
+                gameConfig = { ...gameConfig, ...parsed };
+            } catch(e){}
+        }
+
+        function applyEventTitles() {
+            const mainTitle = gameConfig.eventTitle || "Chasse au Trésor";
+            const subTitle = gameConfig.eventSubtitle || "25 Ans de Mariage";
+            const badge = gameConfig.badgeText || "25";
+
+            document.getElementById('welcome-title-display').innerText = mainTitle;
+            document.getElementById('welcome-subtitle-display').innerText = subTitle;
+            document.getElementById('header-subtitle-display').innerText = subTitle;
+            document.getElementById('header-badge').innerText = badge;
+            document.getElementById('app-page-title').innerText = `${mainTitle} - ${subTitle} (v1.1.5)`;
         }
 
         async function syncPlayerToApi(playerObj) {
@@ -522,7 +569,6 @@
                 return;
             }
 
-            // Sync with backend first to check for duplicate names
             const allPlayers = await syncDataFromApi();
             const existingSameName = allPlayers.find(p => p.name.trim().toLowerCase() === nameInput.toLowerCase());
             
@@ -547,10 +593,8 @@
             currentPlayers.push(newPlayer);
             localStorage.setItem('wedding_all_players', JSON.stringify(currentPlayers));
 
-            // Sync to server
             await syncPlayerToApi(newPlayer);
 
-            // Display centered modal with code in bold red box
             showToast(`
                 <div class="text-center space-y-3 py-1">
                     <p class="text-base font-bold text-white">Bienvenue <span class="text-amber-400">${nameInput}</span> !</p>
@@ -564,7 +608,6 @@
 
             document.getElementById('welcome-player-name').value = '';
             
-            // Auto transition to Step 1
             setTimeout(() => {
                 setStep(1);
             }, 2500);
@@ -583,6 +626,8 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            applyEventTitles();
+
             const urlParams = new URLSearchParams(window.location.search);
             const stepTokenParam = urlParams.get('step');
 
@@ -599,7 +644,6 @@
             populateBackendForm();
             syncDataFromApi();
 
-            // Periodic sync every 4s
             setInterval(syncDataFromApi, 4000);
         });
 
@@ -678,7 +722,6 @@
                 `;
             }
 
-            // Step 1 is accessible directly, Step 2+ requires entering 4-digit code first
             const requiresAuthGate = currentIdx > 1;
 
             card.innerHTML = `
@@ -688,7 +731,6 @@
                 </div>
 
                 ${requiresAuthGate ? `
-                    <!-- Portail d'accès sécurisé pour Étape 2+ -->
                     <div id="auth-gate-box-${currentIdx}" class="p-5 bg-slate-900/90 border border-amber-500/40 rounded-2xl space-y-4 text-center">
                         <div class="w-12 h-12 mx-auto rounded-full bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 text-xl">
                             <i class="fa-solid fa-lock"></i>
@@ -722,7 +764,6 @@
                     </div>
                 ` : ''}
 
-                <!-- Conteneur d'Énigme (Masqué par défaut si étape 2+) -->
                 <div id="step-content-box-${currentIdx}" class="${requiresAuthGate ? 'hidden' : ''} space-y-4">
                     
                     ${mediaBlockHTML}
@@ -776,7 +817,6 @@
                 return;
             }
 
-            // Force server fetch to get fresh player list
             const allPlayers = await syncDataFromApi();
             const player = allPlayers.find(p => String(p.code) === String(inputCode));
 
@@ -870,7 +910,6 @@
 
                 confetti({ particleCount: 60, spread: 60, origin: { y: 0.7 } });
             } else {
-                // Wrong answer notification formatted in bold red
                 showToast(`
                     <div class="text-center space-y-2">
                         <p class="text-sm font-bold text-rose-500">
@@ -1025,7 +1064,7 @@
         }
 
         function switchAdminTab(tabName) {
-            ['players', 'builder', 'treasure', 'security', 'allqrs', 'guestbook'].forEach(t => {
+            ['players', 'event', 'builder', 'treasure', 'security', 'allqrs', 'guestbook'].forEach(t => {
                 const el = document.getElementById(`tab-${t}`);
                 const btn = document.getElementById(`tab-btn-${t}`);
                 if (el) el.classList.add('hidden');
@@ -1081,6 +1120,10 @@
         }
 
         function populateBackendForm() {
+            document.getElementById('event-title-input').value = gameConfig.eventTitle || "Chasse au Trésor";
+            document.getElementById('event-subtitle-input').value = gameConfig.eventSubtitle || "25 Ans de Mariage";
+            document.getElementById('event-badge-input').value = gameConfig.badgeText || "25";
+
             document.getElementById('final-title-input').value = gameConfig.finalStep.title;
             document.getElementById('final-code-input').value = gameConfig.finalStep.padlockCode;
         }
@@ -1263,12 +1306,19 @@
         }
 
         function saveBackendData() {
+            gameConfig.eventTitle = document.getElementById('event-title-input').value.trim() || "Chasse au Trésor";
+            gameConfig.eventSubtitle = document.getElementById('event-subtitle-input').value.trim() || "25 Ans de Mariage";
+            gameConfig.badgeText = document.getElementById('event-badge-input').value.trim() || "25";
+
             gameConfig.finalStep.title = document.getElementById('final-title-input').value;
             gameConfig.finalStep.padlockCode = document.getElementById('final-code-input').value;
 
             localStorage.setItem('wedding_hunt_config_v6', JSON.stringify(gameConfig));
+            
+            applyEventTitles();
             renderProgressDots();
             renderAllQRCodesPreview();
+            
             showToast(`<div class="text-center space-y-1"><p class="text-emerald-400 font-bold"><i class="fa-solid fa-circle-check mr-1"></i> Toutes les modifications backend ont été enregistrées !</p></div>`);
         }
     </script>
